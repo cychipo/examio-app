@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Examio UI Design Guide</title>
+  <style>
+    :root {
+      --canvas: #faf9f5;
+      --surface-soft: #f5f0e8;
+      --surface-card: #efe9de;
+      --surface-cream-strong: #e8e0d2;
+      --surface-dark: #181715;
+      --surface-dark-elevated: #252320;
+      --surface-dark-soft: #1f1e1b;
+      --hairline: #e6dfd8;
+      --hairline-soft: #ebe6df;
+      --primary: #cc785c;
+      --primary-active: #a9583e;
+      --accent-teal: #5db8a6;
+      --accent-amber: #e8a55a;
+      --success: #5db872;
+      --warning: #d4a017;
+      --error: #c64545;
+      --ink: #141413;
+      --body-strong: #252523;
+      --body: #3d3d3a;
+      --muted: #6c6a64;
+      --muted-soft: #8e8b82;
+      --on-dark: #faf9f5;
+      --on-dark-soft: #a09d96;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-pill: 9999px;
+      --section: 96px;
+      --container: 1200px;
+      --display-font: "Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", serif;
+      --body-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --mono-font: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--body);
+      font-family: var(--body-font);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(250, 249, 245, 0.92);
+      border-bottom: 1px solid var(--hairline-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner,
+    .container {
+      width: min(calc(100% - 40px), var(--container));
+      margin: 0 auto;
+    }
+
+    .nav-inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .mark {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+    }
+
+    .mark svg { display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      padding: 12px 20px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      text-decoration: none;
+      cursor: default;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:active { background: var(--primary-active); }
+
+    .btn-secondary {
+      background: var(--canvas);
+      border-color: var(--hairline);
+      color: var(--ink);
+    }
+
+    .btn-on-dark {
+      background: var(--surface-dark-elevated);
+      color: var(--on-dark);
+    }
+
+    .hero {
+      padding: var(--section) 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.85fr);
+      align-items: center;
+      gap: 56px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-card);
+      color: var(--ink);
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--display-font);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.02;
+    }
+
+    h2 {
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.08;
+    }
+
+    h3 {
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .lead {
+      max-width: 660px;
+      margin: 24px 0 0;
+      color: var(--body-strong);
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-card {
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      background: var(--surface-dark);
+      color: var(--on-dark);
+      padding: 24px;
+    }
+
+    .window-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      color: var(--on-dark-soft);
+      font-size: 13px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--muted-soft);
+    }
+
+    .dot.coral { background: var(--primary); }
+    .dot.amber { background: var(--accent-amber); }
+    .dot.teal { background: var(--accent-teal); }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      background: var(--surface-dark-soft);
+      color: var(--on-dark);
+      padding: 22px;
+      font-family: var(--mono-font);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    code .muted { color: var(--on-dark-soft); }
+    code .coral { color: #e29a80; }
+    code .teal { color: #8cd7c9; }
+    code .amber { color: #f0bd7c; }
+
+    section { padding: var(--section) 0; }
+
+    .section-soft { background: var(--surface-soft); }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--surface-card);
+      padding: 32px;
+    }
+
+    .card.outline {
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+    }
+
+    .card.dark {
+      background: var(--surface-dark);
+      color: var(--on-dark);
+    }
+
+    .card.dark h3,
+    .card.dark strong { color: var(--on-dark); }
+
+    .card.dark p,
+    .card.dark li { color: var(--on-dark-soft); }
+
+    .card h3,
+    .card h4 {
+      margin: 0 0 12px;
+      color: var(--ink);
+    }
+
+    .card h4 {
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .card p { margin: 0; }
+
+    .swatch {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: var(--ink);
+      border: 1px solid rgba(20, 20, 19, 0.08);
+    }
+
+    .swatch.dark-text { color: var(--on-dark); }
+
+    .swatch span {
+      display: block;
+      font-size: 13px;
+      color: currentColor;
+      opacity: 0.78;
+    }
+
+    .swatch strong {
+      display: block;
+      font-size: 15px;
+      color: currentColor;
+    }
+
+    .type-sample {
+      display: grid;
+      gap: 14px;
+    }
+
+    .display-sample {
+      font-family: var(--display-font);
+      color: var(--ink);
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .body-sample {
+      max-width: 720px;
+      color: var(--body);
+      font-size: 17px;
+    }
+
+    .mono-sample {
+      width: fit-content;
+      border-radius: var(--radius-md);
+      background: var(--surface-dark-soft);
+      color: var(--on-dark);
+      padding: 10px 12px;
+      font-family: var(--mono-font);
+      font-size: 14px;
+    }
+
+    .token-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+    }
+
+    .token-table th,
+    .token-table td {
+      border-bottom: 1px solid var(--hairline-soft);
+      padding: 16px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .token-table th {
+      color: var(--ink);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .token-table tr:last-child td { border-bottom: 0; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      border-radius: var(--radius-pill);
+      background: var(--surface-card);
+      color: var(--ink);
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .pill.coral {
+      background: var(--primary);
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .component-preview {
+      display: grid;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .input-demo {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-md);
+      background: var(--canvas);
+      color: var(--ink);
+      padding: 10px 14px;
+      font: inherit;
+    }
+
+    .input-demo:focus {
+      outline: 3px solid rgba(204, 120, 92, 0.15);
+      border-color: var(--primary);
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+      border-radius: var(--radius-lg);
+      background: var(--primary);
+      color: #fff;
+      padding: 56px;
+    }
+
+    .callout h2 { color: #fff; }
+    .callout p { margin: 14px 0 0; max-width: 680px; }
+
+    .cream-button {
+      background: var(--canvas);
+      color: var(--ink);
+    }
+
+    .do-list,
+    .dont-list {
+      margin: 18px 0 0;
+      padding-left: 20px;
+    }
+
+    .do-list li,
+    .dont-list li { margin: 10px 0; }
+
+    footer {
+      background: var(--surface-dark);
+      color: var(--on-dark-soft);
+      padding: 64px 0;
+    }
+
+    footer .brand { color: var(--on-dark); }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 36px;
+    }
+
+    footer h4 {
+      margin: 0 0 14px;
+      color: var(--on-dark);
+    }
+
+    footer p,
+    footer ul { margin: 0; }
+
+    footer ul {
+      display: grid;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .grid-3,
+      .grid-4,
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-grid { align-items: start; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section: 64px; }
+
+      .nav-links { display: none; }
+
+      .nav-inner,
+      .container { width: min(calc(100% - 28px), var(--container)); }
+
+      .hero-grid,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .callout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 14px;
+      }
+
+      .card { padding: 24px; }
+
+      .callout { padding: 32px; }
+
+      .hero-actions,
+      .nav-actions { align-items: stretch; }
+
+      .nav-actions .btn-secondary { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Điều hướng chính">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Examio UI Design Guide">
+        <span class="mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2v20M2 12h20M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>Examio UI</span>
+      </a>
+      <div class="nav-links" aria-label="Mục lục">
+        <a href="#tong-quan">Tổng quan</a>
+        <a href="#mau-sac">Màu sắc</a>
+        <a href="#typography">Typography</a>
+        <a href="#components">Components</a>
+        <a href="#responsive">Responsive</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="#nguyen-tac">Nguyên tắc</a>
+        <a class="btn btn-primary" href="#components">Xem component</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="mark" aria-hidden="true">✳</span> Design guide tiếng Việt</div>
+          <h1>Hệ giao diện ấm, biên tập và giàu nhịp thở cho Examio.</h1>
+          <p class="lead">Tài liệu này chuyển hóa tinh thần trong <strong>DESIGN.md</strong> thành một trang tham chiếu HTML: nền kem, CTA san hô, surface tối navy, tiêu đề serif và component rõ ràng.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#mau-sac">Khám phá token</a>
+            <a class="btn btn-secondary" href="#nguyen-tac">Đọc nguyên tắc</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Minh họa product mockup tối">
+          <div class="window-bar">
+            <div class="dots" aria-hidden="true">
+              <span class="dot coral"></span>
+              <span class="dot amber"></span>
+              <span class="dot teal"></span>
+            </div>
+            <span>examio-ui.tokens.ts</span>
+          </div>
+          <pre><code><span class="muted">const</span> theme = {
+  canvas: <span class="amber">"#faf9f5"</span>,
+  primary: <span class="coral">"#cc785c"</span>,
+  dark: <span class="teal">"#181715"</span>,
+  radius: <span class="amber">"12px"</span>,
+  rhythm: <span class="amber">"96px"</span>
+};</code></pre>
+        </div>
+      </div>
+    </header>
+
+    <section id="tong-quan" class="section-soft">
+      <div class="container">
+        <div class="section-head">
+          <h2>Tổng quan phong cách</h2>
+          <p>Giao diện ưu tiên cảm giác editorial: ít bóng đổ, nhiều khoảng thở, typography có cá tính và nhịp chuyển bề mặt rõ ràng.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Nền kem là gốc</h3>
+            <p>Canvas chính dùng màu kem ấm <strong>#faf9f5</strong>, tránh trắng thuần hoặc xám lạnh để tạo cảm giác thân thiện và khác biệt.</p>
+          </article>
+          <article class="card dark">
+            <h3>Surface tối tạo nhịp</h3>
+            <p>Các mockup code, bảng so sánh, footer và vùng sản phẩm dùng navy tối để tạo độ tương phản và cảm giác công cụ thật.</p>
+          </article>
+          <article class="card">
+            <h3>San hô làm điểm nhấn</h3>
+            <p>Màu coral chỉ dùng cho CTA chính hoặc callout lớn. Không rải màu coral quá nhiều để tránh mất trọng tâm.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mau-sac">
+      <div class="container">
+        <div class="section-head">
+          <h2>Bảng màu chủ đạo</h2>
+          <p>Ba trụ cột thị giác là kem, san hô và navy tối. Các màu phụ chỉ hỗ trợ trạng thái, nhãn hoặc chi tiết nhỏ.</p>
+        </div>
+        <div class="grid grid-4">
+          <div class="swatch" style="background: var(--canvas)"><div><strong>Canvas</strong><span>#faf9f5</span></div><span>Nền chính</span></div>
+          <div class="swatch" style="background: var(--surface-card)"><div><strong>Surface Card</strong><span>#efe9de</span></div><span>Card nội dung</span></div>
+          <div class="swatch dark-text" style="background: var(--primary)"><div><strong>Primary Coral</strong><span>#cc785c</span></div><span>CTA chính</span></div>
+          <div class="swatch dark-text" style="background: var(--surface-dark)"><div><strong>Surface Dark</strong><span>#181715</span></div><span>Mockup, footer</span></div>
+          <div class="swatch" style="background: var(--surface-soft)"><div><strong>Surface Soft</strong><span>#f5f0e8</span></div><span>Band nhẹ</span></div>
+          <div class="swatch" style="background: var(--hairline)"><div><strong>Hairline</strong><span>#e6dfd8</span></div><span>Viền 1px</span></div>
+          <div class="swatch" style="background: var(--accent-teal)"><div><strong>Accent Teal</strong><span>#5db8a6</span></div><span>Trạng thái phụ</span></div>
+          <div class="swatch" style="background: var(--accent-amber)"><div><strong>Accent Amber</strong><span>#e8a55a</span></div><span>Nhãn, highlight</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="typography" class="section-soft">
+      <div class="container">
+        <div class="section-head">
+          <h2>Typography</h2>
+          <p>Tiêu đề dùng serif để tạo giọng biên tập; nội dung dùng sans humanist để dễ đọc; code dùng monospace.</p>
+        </div>
+        <div class="card outline type-sample">
+          <div class="display-sample">Tiêu đề lớn dùng serif, mảnh và có tracking âm.</div>
+          <p class="body-sample">Body text giữ trọng lượng 400, dòng thoáng, màu chữ ấm và không quá đen. Khi cần nhấn mạnh, ưu tiên tăng kích thước hoặc đổi bề mặt thay vì dùng font quá đậm.</p>
+          <div class="mono-sample">const typography = "JetBrains Mono";</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="layout">
+      <div class="container">
+        <div class="section-head">
+          <h2>Layout và spacing</h2>
+          <p>Nhịp chuẩn dùng section padding 96px, container tối đa khoảng 1200px và card padding 32px.</p>
+        </div>
+        <table class="token-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Giá trị</th>
+              <th>Cách dùng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>spacing.section</td><td>96px</td><td>Khoảng cách dọc giữa các band lớn.</td></tr>
+            <tr><td>spacing.xl</td><td>32px</td><td>Padding trong feature card, pricing card, model card.</td></tr>
+            <tr><td>rounded.md</td><td>8px</td><td>Button, input, tab.</td></tr>
+            <tr><td>rounded.lg</td><td>12px</td><td>Card nội dung và code window.</td></tr>
+            <tr><td>rounded.xl</td><td>16px</td><td>Hero artifact hoặc component marquee.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="components" class="section-soft">
+      <div class="container">
+        <div class="section-head">
+          <h2>Components cốt lõi</h2>
+          <p>Các component nên giữ bề mặt phẳng, viền nhẹ và trạng thái rõ ràng. Hover không cần phức tạp.</p>
+        </div>
+        <div class="grid grid-2">
+          <article class="card outline">
+            <h3>Buttons</h3>
+            <p>CTA chính dùng coral, secondary dùng nền kem với viền hairline.</p>
+            <div class="component-preview">
+              <div class="pill-row">
+                <a class="btn btn-primary" href="#components">Bắt đầu</a>
+                <a class="btn btn-secondary" href="#components">Tìm hiểu thêm</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card outline">
+            <h3>Input</h3>
+            <p>Input nền kem, radius 8px, focus ring coral 15% alpha.</p>
+            <div class="component-preview">
+              <input class="input-demo" value="Nhập tên bộ đề Examio" aria-label="Input demo" />
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Feature card</h3>
+            <p>Dùng nền surface-card, padding rộng, không cần shadow. Phù hợp cho mô tả tính năng, lợi ích hoặc module.</p>
+            <div class="pill-row">
+              <span class="pill">Học tập</span>
+              <span class="pill coral">New</span>
+            </div>
+          </article>
+
+          <article class="card dark">
+            <h3>Code window card</h3>
+            <p>Dùng surface-dark cho mockup code, terminal, AI agent flow hoặc demo sản phẩm.</p>
+            <div class="component-preview">
+              <pre><code><span class="muted">await</span> examio.generateQuiz({
+  source: <span class="amber">"document"</span>,
+  mode: <span class="teal">"practice"</span>
+});</code></pre>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="nguyen-tac">
+      <div class="container">
+        <div class="section-head">
+          <h2>Nguyên tắc nên và không nên</h2>
+          <p>Giữ hệ thống nhất quán bằng cách giới hạn màu, bề mặt và kiểu nhấn mạnh.</p>
+        </div>
+        <div class="grid grid-2">
+          <article class="card">
+            <h3>Nên</h3>
+            <ul class="do-list">
+              <li>Neo mọi trang trên canvas kem ấm.</li>
+              <li>Dùng serif cho headline lớn, sans cho UI và nội dung.</li>
+              <li>Dùng coral cho CTA chính và callout lớn.</li>
+              <li>Luân phiên nhịp bề mặt: kem → card kem → dark mockup → coral callout → dark footer.</li>
+            </ul>
+          </article>
+          <article class="card outline">
+            <h3>Không nên</h3>
+            <ul class="dont-list">
+              <li>Không dùng nền trắng tinh hoặc xám lạnh làm canvas chính.</li>
+              <li>Không bold serif headline quá nặng.</li>
+              <li>Không thêm xanh dương/cyan làm màu thương hiệu.</li>
+              <li>Không dùng coral cho mọi chi tiết nhỏ.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="responsive" class="section-soft">
+      <div class="container">
+        <div class="section-head">
+          <h2>Responsive behavior</h2>
+          <p>Trên mobile, layout ưu tiên một cột, giữ code có horizontal scroll thay vì ép xuống dòng.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card outline">
+            <h3>Mobile</h3>
+            <p>Dưới 768px: nav rút gọn, hero một cột, h1 giảm về khoảng 32–42px, card stack dọc.</p>
+          </article>
+          <article class="card outline">
+            <h3>Tablet</h3>
+            <p>768–1024px: grid feature chuyển 2 cột, pricing 2 cột, connector 3 cột nếu đủ chỗ.</p>
+          </article>
+          <article class="card outline">
+            <h3>Desktop</h3>
+            <p>Từ 1024px: container tối đa 1200px, hero 6/6, feature 3 cột, connector 4–6 cột.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="callout">
+          <div>
+            <h2>Dùng guide này làm nền cho UI Examio.</h2>
+            <p>Khi thiết kế trang mới, bắt đầu từ canvas kem, chọn một surface chính cho nhịp, rồi dùng coral thật tiết chế cho hành động quan trọng nhất.</p>
+          </div>
+          <a class="btn cream-button" href="#top">Về đầu trang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand" href="#top">
+          <span class="mark" aria-hidden="true">✳</span>
+          <span>Examio UI</span>
+        </a>
+        <p style="margin-top: 18px; max-width: 360px;">Tài liệu HTML tĩnh được biên soạn bằng tiếng Việt từ hệ thiết kế trong DESIGN.md.</p>
+      </div>
+      <div>
+        <h4>Nền tảng</h4>
+        <ul><li>Canvas kem</li><li>Surface card</li><li>Dark mockup</li></ul>
+      </div>
+      <div>
+        <h4>Thành phần</h4>
+        <ul><li>Button</li><li>Input</li><li>Feature card</li></ul>
+      </div>
+      <div>
+        <h4>Nguyên tắc</h4>
+        <ul><li>KISS</li><li>Ít màu</li><li>Nhiều khoảng thở</li></ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

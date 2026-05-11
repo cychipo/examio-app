@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Examio App — User Stories</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --success: #15803d;
+      --warning: #b45309;
+      --danger: #b91c1c;
+      --shadow: 0 20px 70px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #eff6ff 0, var(--bg) 360px);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+
+    .hero {
+      border: 1px solid rgba(37, 99, 235, 0.16);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow);
+      padding: 42px;
+      backdrop-filter: blur(14px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+    }
+
+    .lead {
+      max-width: 860px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .grid,
+    .three-grid,
+    .two-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 26px;
+    }
+
+    .three-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .two-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card,
+    section {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.04);
+    }
+
+    .card {
+      padding: 18px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      margin-top: 24px;
+      padding: 30px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      margin: 12px 0 0;
+      padding-left: 22px;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    code {
+      border-radius: 6px;
+      background: var(--surface-soft);
+      color: #1d4ed8;
+      padding: 2px 6px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    .toc {
+      columns: 2;
+      column-gap: 28px;
+      padding-left: 20px;
+    }
+
+    .toc a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    .story {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #f8fafc);
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .story h3 {
+      margin-top: 0;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tag.green {
+      background: #dcfce7;
+      color: var(--success);
+    }
+
+    .tag.orange {
+      background: #fef3c7;
+      color: var(--warning);
+    }
+
+    .note {
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      background: var(--primary-soft);
+      padding: 14px 16px;
+      color: #1e3a8a;
+    }
+
+    .section-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: min(100% - 24px, 720px);
+        padding-top: 24px;
+      }
+
+      .hero,
+      section {
+        border-radius: 22px;
+        padding: 24px;
+      }
+
+      .grid,
+      .three-grid,
+      .two-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        columns: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Mobile Product Specification</p>
+      <h1>Examio App — User Stories</h1>
+      <p class="lead">
+        Examio App là phiên bản mobile của hệ thống Examio hiện tại. App không thêm domain mới so với web,
+        mục tiêu là đưa đầy đủ chức năng web lên mobile với trải nghiệm native, dễ dùng trên điện thoại.
+      </p>
+      <div class="grid">
+        <div class="card">
+          <strong>Shared logic</strong>
+          <p>Kotlin Multiplatform cho business logic, networking, validation, cache và repository chung.</p>
+        </div>
+        <div class="card">
+          <strong>Android UI</strong>
+          <p>Jetpack Compose vì nhẹ, hiện đại, native Kotlin và maintain tốt.</p>
+        </div>
+        <div class="card">
+          <strong>iOS UI</strong>
+          <p>SwiftUI để giữ trải nghiệm native iOS, dùng shared logic từ Kotlin.</p>
+        </div>
+        <div class="card">
+          <strong>Backend</strong>
+          <p>Dùng lại API hiện có của Examio web, không tạo backend riêng nếu không cần.</p>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Nhóm người dùng</h2>
+      <div class="three-grid">
+        <div class="card">
+          <strong>Student</strong>
+          <p>Học, luyện tập, thi, xem kết quả, chat với AI, tạo nội dung học tập và theo dõi tiến độ.</p>
+        </div>
+        <div class="card">
+          <strong>Teacher / Content Creator</strong>
+          <p>Tạo đề thi, flashcard, quiz, dùng AI hỗ trợ tạo tài liệu và quản lý tài nguyên.</p>
+        </div>
+        <div class="card">
+          <strong>Admin / Operator</strong>
+          <p>Quản trị hệ thống, theo dõi người dùng, gói dịch vụ, thanh toán và vận hành.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Nguyên tắc UX mobile</h2>
+      <ul>
+        <li>Ưu tiên một tác vụ chính mỗi màn hình.</li>
+        <li>Navigation rõ ràng bằng bottom tabs cho các khu vực chính.</li>
+        <li>Form dài cần chia bước, có autosave nếu phù hợp.</li>
+        <li>Tất cả hành động async phải có loading, retry và error message rõ.</li>
+        <li>Không nhồi UI desktop vào mobile; cùng chức năng nhưng layout native mobile.</li>
+        <li>Hỗ trợ dark mode sau khi core flow ổn định, không làm trước nếu làm chậm MVP.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Information Architecture đề xuất</h2>
+      <div class="two-grid">
+        <div class="card">
+          <strong>Bottom tabs chính</strong>
+          <ol>
+            <li>Trang chủ</li>
+            <li>Học tập</li>
+            <li>Thi của tôi</li>
+            <li>AI</li>
+            <li>Tài khoản</li>
+          </ol>
+        </div>
+        <div class="card">
+          <strong>Khu vực phụ</strong>
+          <ul>
+            <li>Thông báo</li>
+            <li>Ví và subscription</li>
+            <li>Cài đặt</li>
+            <li>Lịch sử hoạt động</li>
+            <li>Quản lý tài liệu</li>
+            <li>Admin tools nếu user có quyền</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Mục lục Epic</h2>
+      <ol class="toc">
+        <li><a href="#epic-1">Authentication & Session</a></li>
+        <li><a href="#epic-2">Home Dashboard</a></li>
+        <li><a href="#epic-3">Exam & Practice</a></li>
+        <li><a href="#epic-4">Flashcard</a></li>
+        <li><a href="#epic-5">AI Student Programming</a></li>
+        <li><a href="#epic-6">AI Teacher / AI Content Generation</a></li>
+        <li><a href="#epic-7">Document, OCR & RAG</a></li>
+        <li><a href="#epic-8">Quiz Set, Question Bank & Learning Resources</a></li>
+        <li><a href="#epic-9">Wallet, Subscription & Payment</a></li>
+        <li><a href="#epic-10">Profile & Settings</a></li>
+        <li><a href="#epic-11">Notification</a></li>
+        <li><a href="#epic-12">Statistics & Analytics</a></li>
+        <li><a href="#epic-13">Admin & Role-based Access</a></li>
+        <li><a href="#epic-14">Offline, Cache & Reliability</a></li>
+        <li><a href="#epic-15">Mobile Platform Requirements</a></li>
+      </ol>
+    </section>
+
+    <section id="epic-1">
+      <div class="section-title"><h2>Epic 1 — Authentication & Session</h2><span class="tag">US-001 → US-005</span></div>
+      <div class="story"><h3>US-001 — Đăng nhập bằng email/mật khẩu</h3><p>Là người dùng, tôi muốn đăng nhập bằng email và mật khẩu để truy cập tài khoản Examio trên mobile.</p><ul><li>Nhập email và mật khẩu.</li><li>Hiển thị lỗi rõ khi sai thông tin hoặc tài khoản chưa xác thực.</li><li>Token lưu an toàn bằng secure storage.</li><li>Đăng nhập thành công điều hướng vào Trang chủ.</li></ul></div>
+      <div class="story"><h3>US-002 — Đăng ký tài khoản</h3><p>Là người dùng mới, tôi muốn đăng ký tài khoản để bắt đầu sử dụng Examio.</p><ul><li>Validate email, mật khẩu, xác nhận mật khẩu.</li><li>Hiển thị trạng thái gửi mã/xác thực nếu backend yêu cầu.</li><li>Không submit nhiều lần khi request đang chạy.</li></ul></div>
+      <div class="story"><h3>US-003 — Quên mật khẩu</h3><p>Là người dùng, tôi muốn đặt lại mật khẩu khi quên mật khẩu.</p><ul><li>Nhập email để nhận mã/link reset.</li><li>Đặt mật khẩu mới sau khi xác thực.</li><li>Hiển thị trạng thái thành công/thất bại rõ ràng.</li></ul></div>
+      <div class="story"><h3>US-004 — OAuth login</h3><p>Là người dùng, tôi muốn đăng nhập bằng OAuth nếu web đang hỗ trợ.</p><ul><li>Mở provider OAuth bằng browser/session an toàn.</li><li>Sau callback, lưu session và điều hướng về màn hình chính.</li><li>Callback lỗi hoặc bị hủy hiển thị thông báo dễ hiểu.</li></ul></div>
+      <div class="story"><h3>US-005 — Quản lý session và logout</h3><p>Là người dùng, tôi muốn đăng xuất và quản lý session an toàn.</p><ul><li>Logout xóa token/local session.</li><li>Token hết hạn hoặc bị revoke thì tự điều hướng về đăng nhập.</li><li>Không để lộ dữ liệu cá nhân sau logout.</li></ul></div>
+    </section>
+
+    <section id="epic-2">
+      <div class="section-title"><h2>Epic 2 — Home Dashboard</h2><span class="tag">US-006 → US-007</span></div>
+      <div class="story"><h3>US-006 — Xem tổng quan học tập</h3><p>Là student, tôi muốn xem dashboard tổng quan để biết việc cần làm tiếp theo.</p><ul><li>Hiển thị exam gần nhất, tiến độ học, shortcut vào AI, quiz, flashcard.</li><li>Dữ liệu loading bằng skeleton hoặc shimmer.</li><li>Empty state có hướng dẫn hành động tiếp theo.</li></ul></div>
+      <div class="story"><h3>US-007 — Xem hoạt động gần đây</h3><p>Là người dùng, tôi muốn xem các hoạt động gần đây để tiếp tục nhanh.</p><ul><li>Hiển thị danh sách hoạt động học/thi/chat gần đây.</li><li>Bấm item mở đúng màn hình chi tiết.</li><li>Có fallback khi không có hoạt động.</li></ul></div>
+    </section>
+
+    <section id="epic-3">
+      <div class="section-title"><h2>Epic 3 — Exam & Practice</h2><span class="tag">US-008 → US-012</span></div>
+      <div class="story"><h3>US-008 — Xem danh sách kỳ thi của tôi</h3><p>Là student, tôi muốn xem danh sách kỳ thi được giao để chuẩn bị và tham gia thi.</p><ul><li>Danh sách có trạng thái sắp diễn ra, đang mở, đã kết thúc.</li><li>Có filter/search cơ bản.</li><li>Không gọi API lặp vô hạn khi vào màn hình.</li></ul></div>
+      <div class="story"><h3>US-009 — Xem chi tiết phòng thi</h3><p>Là student, tôi muốn xem thông tin phòng thi trước khi tham gia.</p><ul><li>Hiển thị thời gian, môn, số câu, quy định, trạng thái tham gia.</li><li>Nếu chưa đủ điều kiện, hiển thị lý do.</li><li>Nếu được phép, có CTA vào thi rõ ràng.</li></ul></div>
+      <div class="story"><h3>US-010 — Làm bài thi</h3><p>Là student, tôi muốn làm bài thi trên mobile với trải nghiệm ổn định.</p><ul><li>Hiển thị câu hỏi, đáp án, tiến độ, timer.</li><li>Tự lưu đáp án định kỳ hoặc theo từng thay đổi nếu backend hỗ trợ.</li><li>Có cảnh báo khi rời màn hình trong lúc thi.</li><li>Submit bài có xác nhận.</li></ul></div>
+      <div class="story"><h3>US-011 — Xem kết quả thi</h3><p>Là student, tôi muốn xem điểm và phân tích sau khi nộp bài.</p><ul><li>Hiển thị điểm, số câu đúng/sai, thời gian làm bài.</li><li>Nếu backend cho phép, hiển thị lời giải/feedback.</li><li>Có link luyện lại hoặc xem lại nội dung liên quan.</li></ul></div>
+      <div class="story"><h3>US-012 — Luyện tập quiz</h3><p>Là student, tôi muốn luyện quiz ngoài kỳ thi để ôn tập.</p><ul><li>Có danh sách quiz/practice set.</li><li>Làm từng câu, xem đúng/sai và lời giải nếu có.</li><li>Tiến độ luyện tập được lưu.</li></ul></div>
+    </section>
+
+    <section id="epic-4">
+      <div class="section-title"><h2>Epic 4 — Flashcard</h2><span class="tag">US-013 → US-015</span></div>
+      <div class="story"><h3>US-013 — Xem bộ flashcard</h3><p>Là student, tôi muốn xem các bộ flashcard để học nhanh trên mobile.</p><ul><li>Danh sách flashcard set có search/filter.</li><li>Card hiển thị title, số lượng thẻ, tiến độ.</li><li>Empty state hướng dẫn tạo/import nếu user có quyền.</li></ul></div>
+      <div class="story"><h3>US-014 — Học flashcard</h3><p>Là student, tôi muốn học flashcard bằng thao tác lật thẻ/swipe.</p><ul><li>Tap để lật thẻ.</li><li>Swipe hoặc nút để chuyển thẻ.</li><li>Có trạng thái nhớ/chưa nhớ nếu backend hỗ trợ.</li><li>Layout không bị tràn trên màn hình nhỏ.</li></ul></div>
+      <div class="story"><h3>US-015 — Tạo/chỉnh sửa flashcard</h3><p>Là teacher/content creator, tôi muốn tạo và chỉnh sửa flashcard trên app.</p><ul><li>Tạo/sửa/xóa thẻ trong set.</li><li>Validate nội dung bắt buộc.</li><li>Có xác nhận trước khi xóa.</li></ul></div>
+    </section>
+
+    <section id="epic-5">
+      <div class="section-title"><h2>Epic 5 — AI Student Programming</h2><span class="tag">US-016 → US-019</span></div>
+      <div class="story"><h3>US-016 — Chat luyện lập trình với AI</h3><p>Là student, tôi muốn hỏi bài lập trình và nhận hướng dẫn từ AI.</p><ul><li>Chat hỗ trợ nhập đề bài, câu hỏi và code snippet.</li><li>Tin nhắn AI hiển thị streaming nếu backend hỗ trợ.</li><li>Có trạng thái loading và retry khi lỗi.</li></ul></div>
+      <div class="story"><h3>US-017 — Sinh code theo yêu cầu</h3><p>Là student, tôi muốn AI sinh code mẫu để tham khảo cách giải.</p><ul><li>Chọn ngôn ngữ nếu web đang hỗ trợ.</li><li>Chọn model nếu backend trả danh sách model.</li><li>Hiển thị code có syntax highlight hoặc format dễ đọc.</li></ul></div>
+      <div class="story"><h3>US-018 — Chấm điểm tín nhiệm code sinh ra</h3><p>Là student, tôi muốn xem điểm tín nhiệm của code/answer để biết mức độ đáng tin.</p><ul><li>Hiển thị điểm, nguồn điểm, mức tin cậy.</li><li>Không hiển thị điểm LLM judge như điểm testcase thật.</li><li>Label theo metadata: <code>benchmark</code>, <code>synthetic_tests</code>, <code>llm_judge</code>, <code>static_only</code>, <code>unavailable</code>.</li><li>Nếu <code>isEstimated=true</code>, hiển thị cảnh báo điểm chỉ là ước lượng.</li></ul></div>
+      <div class="story"><h3>US-019 — Xem issues và strengths của code</h3><p>Là student, tôi muốn xem điểm mạnh và lỗi chính trong answer để biết cần cải thiện gì.</p><ul><li>Hiển thị strengths và issues nếu backend trả về.</li><li>Không làm UI rối nếu danh sách dài; chỉ hiển thị ngắn gọn và cho mở rộng nếu cần.</li></ul></div>
+    </section>
+
+    <section id="epic-6">
+      <div class="section-title"><h2>Epic 6 — AI Teacher / AI Content Generation</h2><span class="tag">US-020 → US-022</span></div>
+      <div class="story"><h3>US-020 — Sinh quiz bằng AI</h3><p>Là teacher/content creator, tôi muốn sinh quiz bằng AI để tiết kiệm thời gian tạo nội dung.</p><ul><li>Nhập prompt/chủ đề/tham số cần thiết.</li><li>Gọi backend generation hiện có.</li><li>Hiển thị tiến trình hoặc loading phù hợp.</li><li>Kết quả có thể xem lại và chỉnh sửa nếu web hỗ trợ.</li></ul></div>
+      <div class="story"><h3>US-021 — Sinh flashcard bằng AI</h3><p>Là teacher/content creator, tôi muốn sinh flashcard bằng AI từ nội dung học tập.</p><ul><li>Nhập chủ đề hoặc chọn tài liệu nguồn nếu có.</li><li>Hiển thị flashcard được sinh ra.</li><li>Có thể lưu/chỉnh sửa nếu web hỗ trợ.</li></ul></div>
+      <div class="story"><h3>US-022 — Chọn model AI</h3><p>Là người dùng, tôi muốn chọn model AI tương tự web để kiểm soát chất lượng/tốc độ.</p><ul><li>Danh sách model lấy từ backend hoặc config hiện có.</li><li>Không hard-code provider trực tiếp trong app nếu backend đã quản lý provider.</li><li>Khi model không khả dụng, hiển thị lỗi dễ hiểu.</li></ul></div>
+    </section>
+
+    <section id="epic-7">
+      <div class="section-title"><h2>Epic 7 — Document, OCR & RAG</h2><span class="tag">US-023 → US-025</span></div>
+      <div class="story"><h3>US-023 — Upload tài liệu</h3><p>Là người dùng, tôi muốn upload tài liệu từ điện thoại để dùng cho học tập/AI.</p><ul><li>Hỗ trợ chọn file từ thiết bị.</li><li>Kiểm tra size/type theo rule backend.</li><li>Hiển thị tiến trình upload.</li><li>Lỗi quota/permission hiển thị đúng message backend.</li></ul></div>
+      <div class="story"><h3>US-024 — Theo dõi OCR/embedding job</h3><p>Là người dùng, tôi muốn biết tài liệu đã xử lý xong chưa để dùng với AI.</p><ul><li>Poll hoặc subscribe status theo API hiện có.</li><li>Trạng thái gồm pending/running/completed/failed nếu backend có.</li><li>Không poll vô hạn nếu job đã terminal.</li><li>Có retry khi failed nếu backend hỗ trợ.</li></ul></div>
+      <div class="story"><h3>US-025 — Chat với tài liệu</h3><p>Là người dùng, tôi muốn hỏi AI dựa trên tài liệu đã upload.</p><ul><li>Chọn tài liệu/context.</li><li>AI trả lời dựa trên tài liệu được chọn.</li><li>Hiển thị lỗi khi tài liệu chưa OCR/embedding xong.</li></ul></div>
+    </section>
+
+    <section id="epic-8">
+      <div class="section-title"><h2>Epic 8 — Quiz Set, Question Bank & Learning Resources</h2><span class="tag">US-026 → US-027</span></div>
+      <div class="story"><h3>US-026 — Xem tài nguyên học tập</h3><p>Là người dùng, tôi muốn xem quiz set, question set, label, subject để tìm nội dung học.</p><ul><li>Danh sách có pagination hoặc infinite scroll an toàn.</li><li>Có search/filter theo subject/label nếu web có.</li><li>Màn hình mobile không tải toàn bộ dữ liệu lớn một lần.</li></ul></div>
+      <div class="story"><h3>US-027 — Quản lý câu hỏi</h3><p>Là teacher/content creator, tôi muốn tạo/sửa/xóa câu hỏi nếu web hỗ trợ role này.</p><ul><li>Form hỗ trợ các loại câu hỏi hiện có.</li><li>Validate dữ liệu trước submit.</li><li>Xóa có confirmation.</li></ul></div>
+    </section>
+
+    <section id="epic-9">
+      <div class="section-title"><h2>Epic 9 — Wallet, Subscription & Payment</h2><span class="tag">US-028 → US-030</span></div>
+      <div class="story"><h3>US-028 — Xem ví và số dư</h3><p>Là người dùng, tôi muốn xem ví/số dư/gói hiện tại trên mobile.</p><ul><li>Hiển thị số dư, subscription hiện tại, trạng thái gói.</li><li>Dữ liệu refresh khi vào màn hình.</li><li>Không cache sai thông tin thanh toán nhạy cảm.</li></ul></div>
+      <div class="story"><h3>US-029 — Xem lịch sử giao dịch</h3><p>Là người dùng, tôi muốn xem lịch sử giao dịch để đối soát.</p><ul><li>Danh sách có ngày, số tiền, trạng thái.</li><li>Có pagination.</li><li>Empty state rõ ràng.</li></ul></div>
+      <div class="story"><h3>US-030 — Nâng cấp gói</h3><p>Là người dùng, tôi muốn nâng cấp subscription để dùng tính năng premium.</p><ul><li>Hiển thị các gói như web.</li><li>Flow thanh toán dùng backend hiện có.</li><li>Xử lý trạng thái pending/success/failed.</li></ul></div>
+    </section>
+
+    <section id="epic-10">
+      <div class="section-title"><h2>Epic 10 — Profile & Settings</h2><span class="tag">US-031 → US-033</span></div>
+      <div class="story"><h3>US-031 — Xem và chỉnh sửa hồ sơ</h3><p>Là người dùng, tôi muốn xem và chỉnh sửa thông tin cá nhân.</p><ul><li>Hiển thị thông tin profile hiện tại.</li><li>Cho phép cập nhật các field web đang hỗ trợ.</li><li>Validate trước khi submit.</li></ul></div>
+      <div class="story"><h3>US-032 — Cài đặt app</h3><p>Là người dùng, tôi muốn cấu hình trải nghiệm app.</p><ul><li>Có setting theme nếu app hỗ trợ.</li><li>Có setting notification nếu backend/mobile push hỗ trợ.</li><li>Có thông tin phiên bản app.</li></ul></div>
+      <div class="story"><h3>US-033 — Quản lý thiết bị/session</h3><p>Là người dùng, tôi muốn xem hoặc quản lý thiết bị đăng nhập nếu web/backend hỗ trợ.</p><ul><li>Hiển thị danh sách session/device nếu API có.</li><li>Cho phép revoke session nếu backend hỗ trợ.</li></ul></div>
+    </section>
+
+    <section id="epic-11">
+      <div class="section-title"><h2>Epic 11 — Notification</h2><span class="tag">US-034 → US-035</span></div>
+      <div class="story"><h3>US-034 — Nhận thông báo học tập/thi</h3><p>Là student, tôi muốn nhận thông báo về kỳ thi, deadline và kết quả.</p><ul><li>Xin quyền notification đúng thời điểm.</li><li>Notification mở đúng màn hình liên quan.</li><li>Có fallback trong app notification center nếu push chưa triển khai.</li></ul></div>
+      <div class="story"><h3>US-035 — Xem notification center</h3><p>Là người dùng, tôi muốn xem thông báo trong app.</p><ul><li>Danh sách có trạng thái đã đọc/chưa đọc nếu backend hỗ trợ.</li><li>Bấm thông báo điều hướng đúng.</li></ul></div>
+    </section>
+
+    <section id="epic-12">
+      <div class="section-title"><h2>Epic 12 — Statistics & Analytics</h2><span class="tag">US-036 → US-037</span></div>
+      <div class="story"><h3>US-036 — Xem thống kê học tập cá nhân</h3><p>Là student, tôi muốn xem thống kê học tập để biết tiến độ.</p><ul><li>Hiển thị điểm, tiến độ, lịch sử luyện tập/thi.</li><li>Chart mobile dễ đọc, không quá nhiều dữ liệu trên một màn hình.</li><li>Có empty state nếu chưa có dữ liệu.</li></ul></div>
+      <div class="story"><h3>US-037 — Xem analytics cho teacher/admin</h3><p>Là teacher/admin, tôi muốn xem thống kê lớp/kỳ thi/người học nếu web hỗ trợ.</p><ul><li>Có filter cơ bản.</li><li>Chart/table phù hợp mobile.</li><li>Không tải dataset quá lớn một lần.</li></ul></div>
+    </section>
+
+    <section id="epic-13">
+      <div class="section-title"><h2>Epic 13 — Admin & Role-based Access</h2><span class="tag">US-038 → US-039</span></div>
+      <div class="story"><h3>US-038 — Điều hướng theo quyền</h3><p>Là người dùng có role khác nhau, tôi muốn chỉ thấy tính năng mình được phép dùng.</p><ul><li>Ẩn hoặc disable tính năng không có quyền.</li><li>API lỗi permission hiển thị rõ.</li><li>Không chỉ dựa vào UI để bảo vệ quyền.</li></ul></div>
+      <div class="story"><h3>US-039 — Admin quản lý dữ liệu cốt lõi</h3><p>Là admin, tôi muốn quản lý các entity quan trọng nếu web đang có màn admin tương ứng.</p><ul><li>Màn admin mobile ưu tiên view/search/detail trước.</li><li>Thao tác nguy hiểm có confirmation.</li><li>Không cố nhồi bảng desktop phức tạp vào màn hình nhỏ.</li></ul></div>
+    </section>
+
+    <section id="epic-14">
+      <div class="section-title"><h2>Epic 14 — Offline, Cache & Reliability</h2><span class="tag">US-040 → US-041</span></div>
+      <div class="story"><h3>US-040 — Cache dữ liệu đọc gần đây</h3><p>Là người dùng, tôi muốn app mở nhanh và xem được một số dữ liệu gần đây khi mạng yếu.</p><ul><li>Cache dữ liệu ít nhạy cảm như danh sách gần đây, flashcard đã học.</li><li>Không cache token hoặc dữ liệu nhạy cảm ở storage không an toàn.</li><li>Khi offline, hiển thị trạng thái offline rõ.</li></ul></div>
+      <div class="story"><h3>US-041 — Retry request thất bại</h3><p>Là người dùng, tôi muốn thử lại khi mạng lỗi.</p><ul><li>Các màn hình lỗi có nút retry.</li><li>Không retry vô hạn request ghi dữ liệu.</li><li>Tránh duplicate submit khi mạng chập chờn.</li></ul></div>
+    </section>
+
+    <section id="epic-15">
+      <div class="section-title"><h2>Epic 15 — Mobile Platform Requirements</h2><span class="tag">US-042 → US-044</span></div>
+      <div class="story"><h3>US-042 — Deep link vào màn hình chính</h3><p>Là người dùng, tôi muốn mở app từ link thông báo/email và vào đúng nội dung.</p><ul><li>Link exam mở chi tiết exam/phòng thi.</li><li>Link chat/document mở đúng context nếu user đã đăng nhập.</li><li>Nếu chưa đăng nhập, sau login điều hướng về link đích.</li></ul></div>
+      <div class="story"><h3>US-043 — Secure storage</h3><p>Là người dùng, tôi muốn thông tin đăng nhập được lưu an toàn.</p><ul><li>Android dùng Keystore-backed secure storage.</li><li>iOS dùng Keychain.</li><li>Không lưu token ở plain preferences/user defaults.</li></ul></div>
+      <div class="story"><h3>US-044 — App performance baseline</h3><p>Là người dùng, tôi muốn app phản hồi nhanh và không giật lag.</p><ul><li>Màn chính load skeleton trong dưới 300ms sau khi mở màn.</li><li>Danh sách dài dùng pagination/lazy loading.</li><li>Image/file preview không gây OOM.</li><li>Không block main thread khi parse dữ liệu lớn.</li></ul></div>
+    </section>
+
+    <section>
+      <h2>MVP đề xuất</h2>
+      <div class="three-grid">
+        <div class="card">
+          <span class="tag green">MVP 1</span>
+          <p>Login/logout/session, dashboard, my exams, exam detail, do exam, result, flashcard, AI student programming, profile.</p>
+        </div>
+        <div class="card">
+          <span class="tag orange">MVP 2</span>
+          <p>AI quiz generation, AI flashcard generation, upload document, OCR/embedding status, chat with document.</p>
+        </div>
+        <div class="card">
+          <span class="tag">MVP 3</span>
+          <p>Wallet/subscription, transaction history, statistics, teacher/admin flows, notification center/push.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Non-goals</h2>
+      <ul>
+        <li>Không viết lại backend riêng cho mobile.</li>
+        <li>Không gọi trực tiếp AI provider từ mobile app.</li>
+        <li>Không thêm feature ngoài web trong phase đầu.</li>
+        <li>Không clone layout desktop y nguyên nếu không phù hợp mobile.</li>
+        <li>Không dùng Kotlin để vẽ UI iOS; iOS UI dùng SwiftUI native.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Definition of Done chung</h2>
+      <p class="note">Mỗi story hoàn tất khi chức năng tương đương web, có loading/error/empty state, xử lý session hết hạn, không crash khi API lỗi hoặc mất mạng, UI phù hợp mobile, và business rules chung được đưa vào Kotlin Multiplatform nếu hợp lý.</p>
+    </section>
+  </main>
+</body>
+</html>
